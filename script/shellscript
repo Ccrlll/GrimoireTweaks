@@ -44,9 +44,6 @@ chmod 0644 /sys/devices/system/cpu/cpu5/cpufreq/scaling_governor
 chmod 0644 /sys/devices/system/cpu/cpu6/cpufreq/scaling_governor
 chmod 0644 /sys/devices/system/cpu/cpu7/cpufreq/scaling_governor
 
-echo 2419000 > /sys/devices/system/cpu/cpu7/cpufreq/scaling_max_freq
-chmod 0644 /sys/devices/system/cpu/cpu7/cpufreq/scaling_max_freq
-
 #L3-tweak
 echo 1612800000 > /sys/class/devfreq/18590000.qcom,devfreq-l3:qcom,cpu0-cpu-l3-lat/min_freq
 echo 1612800000 > /sys/class/devfreq/18590000.qcom,devfreq-l3:qcom,cpu4-cpu-l3-lat/min_freq
@@ -168,8 +165,7 @@ chmod 0644 /dev/stune/top-app/schedtune.sched_boost_no_override
 chmod 0644 /dev/cpuset/top-app/cpus
 
 #cpu-governor-param
-echo 8000 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/down_rate_limit_us
-echo 1632000 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/hispeed_freq
+echo 10000 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/down_rate_limit_us
 echo 85 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/hispeed_load
 echo 1 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/pl
 echo 500 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/up_rate_limit_us
@@ -179,8 +175,7 @@ chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/schedutil/hispeed_load
 chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/schedutil/pl
 chmod 0644 /sys/devices/system/cpu/cpufreq/policy0/schedutil/up_rate_limit_us
 
-echo 8000 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/down_rate_limit_us
-echo 2419000 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/hispeed_freq
+echo 15000 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/down_rate_limit_us
 echo 85 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/hispeed_load
 echo 1 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/pl
 echo 500 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/up_rate_limit_us
@@ -190,8 +185,7 @@ chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/schedutil/hispeed_load
 chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/schedutil/pl
 chmod 0644 /sys/devices/system/cpu/cpufreq/policy4/schedutil/up_rate_limit_us
 
-echo 8000 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/down_rate_limit_us
-echo 2419000 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/hispeed_freq
+echo 20000 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/down_rate_limit_us
 echo 85 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/hispeed_load
 echo 1 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/pl
 echo 500 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/up_rate_limit_us
@@ -221,7 +215,7 @@ echo 1500 > /proc/sys/vm/dirty_writeback_centisecs
 echo 1500 > /proc/sys/vm/dirty_expire_centisecs
 echo 75 > /proc/sys/vm/vfs_cache_pressure
 echo 0 > /proc/sys/vm/page-cluster
-echo 30 > /proc/sys/vm/stat_interval
+echo 10 > /proc/sys/vm/stat_interval
 chmod 0644 /sys/block/zram0/initstate
 chmod 0644 /sys/block/zram0/disksize
 chmod 0644 /sys/block/zram0/comp_algorithm
@@ -235,12 +229,6 @@ chmod 0644 /proc/sys/vm/page-cluster
 chmod 0644 /proc/sys/vm/stat_interval
 
 #I/O-scheduler-mods
-echo "none" > /sys/block/dm-0/queue/scheduler
-echo "none" > /sys/block/dm-1/queue/scheduler
-echo "none" > /sys/block/dm-2/queue/scheduler
-echo "none" > /sys/block/dm-3/queue/scheduler
-echo "none" > /sys/block/dm-4/queue/scheduler
-echo "none" > /sys/block/dm-5/queue/scheduler
 echo "kyber" > /sys/block/loop0/queue/scheduler
 echo "kyber" > /sys/block/loop1/queue/scheduler
 echo "kyber" > /sys/block/loop2/queue/scheduler
@@ -280,12 +268,6 @@ echo "cfq" > /sys/block/sdc/queue/scheduler
 echo "cfq" > /sys/block/sdd/queue/scheduler
 echo "cfq" > /sys/block/sde/queue/scheduler
 echo "cfq" > /sys/block/sdf/queue/scheduler
-chmod 0644 /sys/block/dm-0/queue/scheduler
-chmod 0644 /sys/block/dm-1/queue/scheduler
-chmod 0644 /sys/block/dm-2/queue/scheduler
-chmod 0644 /sys/block/dm-3/queue/scheduler
-chmod 0644 /sys/block/dm-4/queue/scheduler
-chmod 0644 /sys/block/dm-5/queue/scheduler
 chmod 0644 /sys/block/loop0/queue/scheduler
 chmod 0644 /sys/block/loop1/queue/scheduler
 chmod 0644 /sys/block/loop2/queue/scheduler
@@ -327,12 +309,6 @@ chmod 0644 /sys/block/sde/queue/scheduler
 chmod 0644 /sys/block/sdf/queue/scheduler
 
 #I/O-addRandom-mods
-echo 0 > /sys/block/dm-0/queue/add_random
-echo 0 > /sys/block/dm-1/queue/add_random
-echo 0 > /sys/block/dm-2/queue/add_random
-echo 0 > /sys/block/dm-3/queue/add_random
-echo 0 > /sys/block/dm-4/queue/add_random
-echo 0 > /sys/block/dm-5/queue/add_random
 echo 0 > /sys/block/loop0/queue/add_random
 echo 0 > /sys/block/loop1/queue/add_random
 echo 0 > /sys/block/loop2/queue/add_random
@@ -372,12 +348,6 @@ echo 0 > /sys/block/sdc/queue/add_random
 echo 0 > /sys/block/sdd/queue/add_random
 echo 0 > /sys/block/sde/queue/add_random
 echo 0 > /sys/block/sdf/queue/add_random
-chmod 0644 /sys/block/dm-0/queue/add_random
-chmod 0644 /sys/block/dm-1/queue/add_random
-chmod 0644 /sys/block/dm-2/queue/add_random
-chmod 0644 /sys/block/dm-3/queue/add_random
-chmod 0644 /sys/block/dm-4/queue/add_random
-chmod 0644 /sys/block/dm-5/queue/add_random
 chmod 0644 /sys/block/loop0/queue/add_random
 chmod 0644 /sys/block/loop1/queue/add_random
 chmod 0644 /sys/block/loop2/queue/add_random
@@ -419,12 +389,6 @@ chmod 0644 /sys/block/sde/queue/add_random
 chmod 0644 /sys/block/sdf/queue/add_random
 
 #I/O-ioStats-mods
-echo 0 > /sys/block/dm-0/queue/iostats
-echo 0 > /sys/block/dm-1/queue/iostats
-echo 0 > /sys/block/dm-2/queue/iostats
-echo 0 > /sys/block/dm-3/queue/iostats
-echo 0 > /sys/block/dm-4/queue/iostats
-echo 0 > /sys/block/dm-5/queue/iostats
 echo 0 > /sys/block/loop0/queue/iostats
 echo 0 > /sys/block/loop1/queue/iostats
 echo 0 > /sys/block/loop2/queue/iostats
@@ -464,12 +428,6 @@ echo 0 > /sys/block/sdc/queue/iostats
 echo 0 > /sys/block/sdd/queue/iostats
 echo 0 > /sys/block/sde/queue/iostats
 echo 0 > /sys/block/sdf/queue/iostats
-chmod 0644 /sys/block/dm-0/queue/iostats
-chmod 0644 /sys/block/dm-1/queue/iostats
-chmod 0644 /sys/block/dm-2/queue/iostats
-chmod 0644 /sys/block/dm-3/queue/iostats
-chmod 0644 /sys/block/dm-4/queue/iostats
-chmod 0644 /sys/block/dm-5/queue/iostats
 chmod 0644 /sys/block/loop0/queue/iostats
 chmod 0644 /sys/block/loop1/queue/iostats
 chmod 0644 /sys/block/loop2/queue/iostats
@@ -511,57 +469,45 @@ chmod 0644 /sys/block/sde/queue/iostats
 chmod 0644 /sys/block/sdf/queue/iostats
 
 #I/O-nrRequests-mods
-echo 1028 > /sys/block/dm-0/queue/nr_requests
-echo 1028 > /sys/block/dm-1/queue/nr_requests
-echo 1028 > /sys/block/dm-2/queue/nr_requests
-echo 1028 > /sys/block/dm-3/queue/nr_requests
-echo 1028 > /sys/block/dm-4/queue/nr_requests
-echo 1028 > /sys/block/dm-5/queue/nr_requests
-echo 1028 > /sys/block/loop0/queue/nr_requests
-echo 1028 > /sys/block/loop1/queue/nr_requests
-echo 1028 > /sys/block/loop2/queue/nr_requests
-echo 1028 > /sys/block/loop3/queue/nr_requests
-echo 1028 > /sys/block/loop4/queue/nr_requests
-echo 1028 > /sys/block/loop5/queue/nr_requests
-echo 1028 > /sys/block/loop6/queue/nr_requests
-echo 1028 > /sys/block/loop7/queue/nr_requests
-echo 1028 > /sys/block/loop8/queue/nr_requests
-echo 1028 > /sys/block/loop9/queue/nr_requests
-echo 1028 > /sys/block/loop10/queue/nr_requests
-echo 1028 > /sys/block/loop11/queue/nr_requests
-echo 1028 > /sys/block/loop12/queue/nr_requests
-echo 1028 > /sys/block/loop13/queue/nr_requests
-echo 1028 > /sys/block/loop14/queue/nr_requests
-echo 1028 > /sys/block/loop15/queue/nr_requests
-echo 1028 > /sys/block/ram0/queue/nr_requests
-echo 1028 > /sys/block/ram1/queue/nr_requests
-echo 1028 > /sys/block/ram2/queue/nr_requests
-echo 1028 > /sys/block/ram3/queue/nr_requests
-echo 1028 > /sys/block/ram4/queue/nr_requests
-echo 1028 > /sys/block/ram5/queue/nr_requests
-echo 1028 > /sys/block/ram6/queue/nr_requests
-echo 1028 > /sys/block/ram7/queue/nr_requests
-echo 1028 > /sys/block/ram8/queue/nr_requests
-echo 1028 > /sys/block/ram9/queue/nr_requests
-echo 1028 > /sys/block/ram10/queue/nr_requests
-echo 1028 > /sys/block/ram11/queue/nr_requests
-echo 1028 > /sys/block/ram12/queue/nr_requests
-echo 1028 > /sys/block/ram13/queue/nr_requests
-echo 1028 > /sys/block/ram14/queue/nr_requests
-echo 1028 > /sys/block/ram15/queue/nr_requests
-echo 1028 > /sys/block/mmcblk0/queue/nr_requests
-echo 1028 > /sys/block/sda/queue/nr_requests
-echo 1028 > /sys/block/sdb/queue/nr_requests
-echo 1028 > /sys/block/sdc/queue/nr_requests
-echo 1028 > /sys/block/sdd/queue/nr_requests
-echo 1028 > /sys/block/sde/queue/nr_requests
-echo 1028 > /sys/block/sdf/queue/nr_requests
-chmod 0644 /sys/block/dm-0/queue/nr_requests
-chmod 0644 /sys/block/dm-1/queue/nr_requests
-chmod 0644 /sys/block/dm-2/queue/nr_requests
-chmod 0644 /sys/block/dm-3/queue/nr_requests
-chmod 0644 /sys/block/dm-4/queue/nr_requests
-chmod 0644 /sys/block/dm-5/queue/nr_requests
+echo 512 > /sys/block/loop0/queue/nr_requests
+echo 512 > /sys/block/loop1/queue/nr_requests
+echo 512 > /sys/block/loop2/queue/nr_requests
+echo 512 > /sys/block/loop3/queue/nr_requests
+echo 512 > /sys/block/loop4/queue/nr_requests
+echo 512 > /sys/block/loop5/queue/nr_requests
+echo 512 > /sys/block/loop6/queue/nr_requests
+echo 512 > /sys/block/loop7/queue/nr_requests
+echo 512 > /sys/block/loop8/queue/nr_requests
+echo 512 > /sys/block/loop9/queue/nr_requests
+echo 512 > /sys/block/loop10/queue/nr_requests
+echo 512 > /sys/block/loop11/queue/nr_requests
+echo 512 > /sys/block/loop12/queue/nr_requests
+echo 512 > /sys/block/loop13/queue/nr_requests
+echo 512 > /sys/block/loop14/queue/nr_requests
+echo 512 > /sys/block/loop15/queue/nr_requests
+echo 512 > /sys/block/ram0/queue/nr_requests
+echo 512 > /sys/block/ram1/queue/nr_requests
+echo 512 > /sys/block/ram2/queue/nr_requests
+echo 512 > /sys/block/ram3/queue/nr_requests
+echo 512 > /sys/block/ram4/queue/nr_requests
+echo 512 > /sys/block/ram5/queue/nr_requests
+echo 512 > /sys/block/ram6/queue/nr_requests
+echo 512 > /sys/block/ram7/queue/nr_requests
+echo 512 > /sys/block/ram8/queue/nr_requests
+echo 512 > /sys/block/ram9/queue/nr_requests
+echo 512 > /sys/block/ram10/queue/nr_requests
+echo 512 > /sys/block/ram11/queue/nr_requests
+echo 512 > /sys/block/ram12/queue/nr_requests
+echo 512 > /sys/block/ram13/queue/nr_requests
+echo 512 > /sys/block/ram14/queue/nr_requests
+echo 512 > /sys/block/ram15/queue/nr_requests
+echo 512 > /sys/block/mmcblk0/queue/nr_requests
+echo 512 > /sys/block/sda/queue/nr_requests
+echo 512 > /sys/block/sdb/queue/nr_requests
+echo 512 > /sys/block/sdc/queue/nr_requests
+echo 512 > /sys/block/sdd/queue/nr_requests
+echo 512 > /sys/block/sde/queue/nr_requests
+echo 512 > /sys/block/sdf/queue/nr_requests
 chmod 0644 /sys/block/loop0/queue/nr_requests
 chmod 0644 /sys/block/loop1/queue/nr_requests
 chmod 0644 /sys/block/loop2/queue/nr_requests
@@ -603,57 +549,45 @@ chmod 0644 /sys/block/sde/queue/nr_requests
 chmod 0644 /sys/block/sdf/queue/nr_requests
 
 #I/O-readAhead-mods
-echo 1028 > /sys/block/dm-0/queue/read_ahead_kb
-echo 1028 > /sys/block/dm-1/queue/read_ahead_kb
-echo 1028 > /sys/block/dm-2/queue/read_ahead_kb
-echo 1028 > /sys/block/dm-3/queue/read_ahead_kb
-echo 1028 > /sys/block/dm-4/queue/read_ahead_kb
-echo 1028 > /sys/block/dm-5/queue/read_ahead_kb
-echo 1028 > /sys/block/loop0/queue/read_ahead_kb
-echo 1028 > /sys/block/loop1/queue/read_ahead_kb
-echo 1028 > /sys/block/loop2/queue/read_ahead_kb
-echo 1028 > /sys/block/loop3/queue/read_ahead_kb
-echo 1028 > /sys/block/loop4/queue/read_ahead_kb
-echo 1028 > /sys/block/loop5/queue/read_ahead_kb
-echo 1028 > /sys/block/loop6/queue/read_ahead_kb
-echo 1028 > /sys/block/loop7/queue/read_ahead_kb
-echo 1028 > /sys/block/loop8/queue/read_ahead_kb
-echo 1028 > /sys/block/loop9/queue/read_ahead_kb
-echo 1028 > /sys/block/loop10/queue/read_ahead_kb
-echo 1028 > /sys/block/loop11/queue/read_ahead_kb
-echo 1028 > /sys/block/loop12/queue/read_ahead_kb
-echo 1028 > /sys/block/loop13/queue/read_ahead_kb
-echo 1028 > /sys/block/loop14/queue/read_ahead_kb
-echo 1028 > /sys/block/loop15/queue/read_ahead_kb
-echo 1028 > /sys/block/ram0/queue/read_ahead_kb
-echo 1028 > /sys/block/ram1/queue/read_ahead_kb
-echo 1028 > /sys/block/ram2/queue/read_ahead_kb
-echo 1028 > /sys/block/ram3/queue/read_ahead_kb
-echo 1028 > /sys/block/ram4/queue/read_ahead_kb
-echo 1028 > /sys/block/ram5/queue/read_ahead_kb
-echo 1028 > /sys/block/ram6/queue/read_ahead_kb
-echo 1028 > /sys/block/ram7/queue/read_ahead_kb
-echo 1028 > /sys/block/ram8/queue/read_ahead_kb
-echo 1028 > /sys/block/ram9/queue/read_ahead_kb
-echo 1028 > /sys/block/ram10/queue/read_ahead_kb
-echo 1028 > /sys/block/ram11/queue/read_ahead_kb
-echo 1028 > /sys/block/ram12/queue/read_ahead_kb
-echo 1028 > /sys/block/ram13/queue/read_ahead_kb
-echo 1028 > /sys/block/ram14/queue/read_ahead_kb
-echo 1028 > /sys/block/ram15/queue/read_ahead_kb
-echo 1028 > /sys/block/mmcblk0/queue/read_ahead_kb
-echo 1028 > /sys/block/sda/queue/read_ahead_kb
-echo 1028 > /sys/block/sdb/queue/read_ahead_kb
-echo 1028 > /sys/block/sdc/queue/read_ahead_kb
-echo 1028 > /sys/block/sdd/queue/read_ahead_kb
-echo 1028 > /sys/block/sde/queue/read_ahead_kb
-echo 1028 > /sys/block/sdf/queue/read_ahead_kb
-chmod 0644 /sys/block/dm-0/queue/read_ahead_kb
-chmod 0644 /sys/block/dm-1/queue/read_ahead_kb
-chmod 0644 /sys/block/dm-2/queue/read_ahead_kb
-chmod 0644 /sys/block/dm-3/queue/read_ahead_kb
-chmod 0644 /sys/block/dm-4/queue/read_ahead_kb
-chmod 0644 /sys/block/dm-5/queue/read_ahead_kb
+echo 512 > /sys/block/loop0/queue/read_ahead_kb
+echo 512 > /sys/block/loop1/queue/read_ahead_kb
+echo 512 > /sys/block/loop2/queue/read_ahead_kb
+echo 512 > /sys/block/loop3/queue/read_ahead_kb
+echo 512 > /sys/block/loop4/queue/read_ahead_kb
+echo 512 > /sys/block/loop5/queue/read_ahead_kb
+echo 512 > /sys/block/loop6/queue/read_ahead_kb
+echo 512 > /sys/block/loop7/queue/read_ahead_kb
+echo 512 > /sys/block/loop8/queue/read_ahead_kb
+echo 512 > /sys/block/loop9/queue/read_ahead_kb
+echo 512 > /sys/block/loop10/queue/read_ahead_kb
+echo 512 > /sys/block/loop11/queue/read_ahead_kb
+echo 512 > /sys/block/loop12/queue/read_ahead_kb
+echo 512 > /sys/block/loop13/queue/read_ahead_kb
+echo 512 > /sys/block/loop14/queue/read_ahead_kb
+echo 512 > /sys/block/loop15/queue/read_ahead_kb
+echo 512 > /sys/block/ram0/queue/read_ahead_kb
+echo 512 > /sys/block/ram1/queue/read_ahead_kb
+echo 512 > /sys/block/ram2/queue/read_ahead_kb
+echo 512 > /sys/block/ram3/queue/read_ahead_kb
+echo 512 > /sys/block/ram4/queue/read_ahead_kb
+echo 512 > /sys/block/ram5/queue/read_ahead_kb
+echo 512 > /sys/block/ram6/queue/read_ahead_kb
+echo 512 > /sys/block/ram7/queue/read_ahead_kb
+echo 512 > /sys/block/ram8/queue/read_ahead_kb
+echo 512 > /sys/block/ram9/queue/read_ahead_kb
+echo 512 > /sys/block/ram10/queue/read_ahead_kb
+echo 512 > /sys/block/ram11/queue/read_ahead_kb
+echo 512 > /sys/block/ram12/queue/read_ahead_kb
+echo 512 > /sys/block/ram13/queue/read_ahead_kb
+echo 512 > /sys/block/ram14/queue/read_ahead_kb
+echo 512 > /sys/block/ram15/queue/read_ahead_kb
+echo 512 > /sys/block/mmcblk0/queue/read_ahead_kb
+echo 512 > /sys/block/sda/queue/read_ahead_kb
+echo 512 > /sys/block/sdb/queue/read_ahead_kb
+echo 512 > /sys/block/sdc/queue/read_ahead_kb
+echo 512 > /sys/block/sdd/queue/read_ahead_kb
+echo 512 > /sys/block/sde/queue/read_ahead_kb
+echo 512 > /sys/block/sdf/queue/read_ahead_kb
 chmod 0644 /sys/block/loop0/queue/read_ahead_kb
 chmod 0644 /sys/block/loop1/queue/read_ahead_kb
 chmod 0644 /sys/block/loop2/queue/read_ahead_kb
