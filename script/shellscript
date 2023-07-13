@@ -58,55 +58,55 @@ echo 250 > /sys/devices/platform/kcal_ctrl.0/kcal_val
 echo 0 > /dev/stune/audio-app/schedtune.boost
 echo 0 > /dev/stune/audio-app/schedtune.colocate
 echo 0 > /dev/stune/audio-app/schedtune.prefer_idle
-echo 0 > /dev/stune/audio-app/schedtune.sched_boost_no_override
+echo 1 > /dev/stune/audio-app/schedtune.sched_boost_no_override
 echo "2-3" > /dev/cpuset/audio-app/cpus
 
 #stune-boost-background
-echo 1 > /dev/stune/background/schedtune.boost
+echo 0 > /dev/stune/background/schedtune.boost
 echo 0 > /dev/stune/background/schedtune.colocate
-echo 1 > /dev/stune/background/schedtune.prefer_idle
-echo 0 > /dev/stune/background/schedtune.sched_boost_no_override
+echo 0 > /dev/stune/background/schedtune.prefer_idle
+echo 1 > /dev/stune/background/schedtune.sched_boost_no_override
 echo "0-1" > /dev/cpuset/background/cpus
 
 #stune-boost-cameraDaemon
 echo 0 > /dev/stune/camera-daemon/schedtune.boost
-echo 0 > /dev/stune/camera-daemon/schedtune.colocate
+echo 1 > /dev/stune/camera-daemon/schedtune.colocate
 echo 0 > /dev/stune/camera-daemon/schedtune.prefer_idle
-echo 0 > /dev/stune/camera-daemon/schedtune.sched_boost_no_override
-echo "0-7" > /dev/cpuset/camera-daemon/cpus
+echo 1 > /dev/stune/camera-daemon/schedtune.sched_boost_no_override
+echo "0-3" > /dev/cpuset/camera-daemon/cpus
 
 #stune-boost-foreground
-echo 5 > /dev/stune/foreground/schedtune.boost
+echo 10 > /dev/stune/foreground/schedtune.boost
 echo 0 > /dev/stune/foreground/schedtune.colocate
 echo 1 > /dev/stune/foreground/schedtune.prefer_idle
 echo 0 > /dev/stune/foreground/schedtune.sched_boost_no_override
-echo "0-7" > /dev/cpuset/foreground/cpus
+echo "4-6" > /dev/cpuset/foreground/cpus
 
 #stune-boost-nnapi-HAL
-echo 5 > /dev/stune/nnapi-hal/schedtune.boost
+echo 15 > /dev/stune/nnapi-hal/schedtune.boost
 echo 0 > /dev/stune/nnapi-hal/schedtune.colocate
 echo 1 > /dev/stune/nnapi-hal/schedtune.prefer_idle
 echo 0 > /dev/stune/nnapi-hal/schedtune.sched_boost_no_override
 
 #stune-boost-rt
 echo 0 > /dev/stune/rt/schedtune.boost
-echo 0 > /dev/stune/rt/schedtune.colocate
+echo 1 > /dev/stune/rt/schedtune.colocate
 echo 0 > /dev/stune/rt/schedtune.prefer_idle
 echo 0 > /dev/stune/rt/schedtune.sched_boost_no_override
 
 #stune-boost-topApp
-echo 10 > /dev/stune/top-app/schedtune.boost
+echo 15 > /dev/stune/top-app/schedtune.boost
 echo 1 > /dev/stune/top-app/schedtune.colocate
 echo 1 > /dev/stune/top-app/schedtune.prefer_idle
-echo 1 > /dev/stune/top-app/schedtune.sched_boost_no_override
+echo 0 > /dev/stune/top-app/schedtune.sched_boost_no_override
 echo "0-7" > /dev/cpuset/top-apps/cpus
 
 #stune-boost-General
 echo 10 > /dev/stune/schedtune.boost
 echo 0 > /dev/stune/schedtune.colocate
 echo 1 > /dev/stune/schedtune.prefer_idle
-echo 0 > /dev/stune/top-app/schedtune.sched_boost_no_override
-echo "0-7" > /dev/cpuset/top-apps/cpus
+echo 0 > /dev/stune/schedtune.sched_boost_no_override
+echo "0-7" > /dev/cpuset/cpus
 
 #cpu-governor-param
 echo 10000 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/down_rate_limit_us
