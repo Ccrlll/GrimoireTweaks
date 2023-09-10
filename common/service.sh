@@ -29,5 +29,3 @@ chmod 0644 /data/vendor/gpu/qgl_config.txt
 
 echo 205 > /proc/sys/kernel/sched_lib_mask_force
 echo "com.miHoYo., com.activision., com.epicgames, com.dts., UnityMain, libunity.so, libil2cpp.so, libmain.so, libcri_vip_unity.so, libopus.so, libxlua.so, libUE4.so, libAsphalt9.so, libnative-lib.so, libRiotGamesApi.so, libResources.so, libagame.so, libapp.so, libflutter.so, libMSDKCore.so, libFIFAMobileNeon.so, libUnreal.so, libEOSSDK.so, libcocos2dcpp.so" > /proc/sys/kernel/sched_lib_name
-
-exit 0
