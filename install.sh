@@ -1,6 +1,6 @@
 SKIPMOUNT=true
-PROPFILE=false
-POSTFSDATA=false
+PROPFILE=true
+POSTFSDATA=true
 LATESTARTSERVICE=true
 
 print_modname() {
@@ -18,10 +18,10 @@ print_modname() {
 
 on_install() {
   ui_print "- Extracting module files"
-  unzip -o "$ZIPFILE" 'script/*' -d $MODPATH >&2
+  unzip -o "$ZIPFILE" 'GrimoireTweaks/*' -d $MODPATH >&2
 }
 
 set_permissions() {
   set_perm_recursive $MODPATH 0 0 0755 0644
-  set_perm_recursive $MODPATH/script 0 0 0755 0700
+  set_perm_recursive $MODPATH/GrimoireTweaks 0 0 0755 0700
 }
