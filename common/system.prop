@@ -1,8 +1,0 @@
-# This file will be read by resetprop
-
-#Change Density
-ro.sf.lcd_density=395
-
-#Rendering
-debug.composition.type=mdp
-debug.hwui.renderer=vulkan
