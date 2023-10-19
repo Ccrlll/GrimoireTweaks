@@ -1,6 +1,6 @@
 id=Ccrlll
 name=Grimoire Tweaks
-version=Final
-versionCode=Final
+version=1.2.5
+versionCode=1.2.5
 author=Ccrlll
-description=contains big.LITTLE tweak, CPU and Kernel tweaks, High Brightness Mode, CABC and FakeAMOLED. CAUTION: Might Increase Battery Usage. Use at your own risk! (^_-).
+description=Kernel Tweaks, Display Mods, and Other Mods. Reduce Heating and Battery Consumption, Might also reduce Performance! So use it at your own will. Don't use with other kernel tweaks!
