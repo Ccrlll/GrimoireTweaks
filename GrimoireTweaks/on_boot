@@ -114,7 +114,7 @@ for kernel in /proc/sys/kernel
 done
 
 #Misc.
-echo "reno" > /proc/sys/net/ipv4/tcp_congestion_control
+echo "cubic" > /proc/sys/net/ipv4/tcp_congestion_control
 echo 4294967296 > /sys/block/zram0/disksize
 
 exit 0
