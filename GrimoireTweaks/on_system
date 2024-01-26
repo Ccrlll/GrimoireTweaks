@@ -1,16 +1,13 @@
 #!/bin/sh
 
-sleep 9
+sleep 30
 
 gov=/sys/devices/system/cpu/cpufreq
 stune=/dev/stune
 cpu_set=/dev/cpuset
 
 #cpuMods
-for governor in $gov/*/scaling_governor
-    do
-        echo "schedutil" $governor
-done
+echo $(grep -q 'blu_schedutil' $gov/*/scaling_available_governor && echo "blu_schedutil" || echo "schedutil") | tee $gov/*/scaling_governor
 
 for gov_param in $gov/*/schedutil
     do 

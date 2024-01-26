@@ -2,7 +2,9 @@
 
 sleep 3
 
+values=(0 4 7)
 display=/sys/devices/platform
+devfreq=/sys/class/devfreq
 
 #displayMods
 for primary in $display/soc/soc:qcom,dsi-display-primary
@@ -18,6 +20,28 @@ for kcal in $display/kcal_ctrl.0
     echo 35 > $kcal/kcal_min
     echo 277 > $kcal/kcal_sat
     echo 250 > $kcal/kcal_val
+done
+
+for value in "${values[@]}"; do
+    for l3Cache in $devfreq/soc:qcom,cpu${value}-cpu-l3-lat/min_freq; do
+        echo 1612800000 > $l3Cache
+        chmod 0444 $l3Cache
+    done
+done
+
+for ddr4x in $devfreq/soc:qcom,cpu-llcc-ddr-bw
+    do
+        echo 762 > $ddr4x/min_freq
+        echo 8136 > $ddr4x/max_freq
+        chmod 0444 $ddr4x/min_freq
+        chmod 0444 $ddr4x/max_freq
+done
+for llcc in $devfreq/soc:qcom,cpu-cpu-llcc-bw
+    do
+        echo 15258 > $llcc/min_freq
+        echo 15258 > $llcc/max_freq
+        chmod 0444 $llcc/min_freq
+        chmod 0444 $llcc/max_freq
 done
 
 #ioScheduler
@@ -88,5 +112,9 @@ for kernel in /proc/sys/kernel
         echo 205 > $kernel/sched_lib_mask_force
         echo "libunity.so, libUE4.so" > $kernel/sched_lib_name
 done
+
+#Misc.
+echo "reno" > /proc/sys/net/ipv4/tcp_congestion_control
+echo 4294967296 > /sys/block/zram0/disksize
 
 exit 0

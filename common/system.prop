@@ -1,5 +1,5 @@
 #DPI
-ro.sf.lcd_density=393
+ro.sf.lcd_density=404
 
 #Rendering
 debug.composition.type=mdp
