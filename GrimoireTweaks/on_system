@@ -1,159 +1,105 @@
-#!/bin/sh
+#!/system/bin/sh
 
-sleep 30
+configure_cpu() {
+    local governor=$1
+    local policy=$2
+    local down_rate=$3
+    local freq=$4
+    local up_rate=$5
 
-gov=/sys/devices/system/cpu/cpufreq
-stune=/dev/stune
-cpu_set=/dev/cpuset
+    echo $governor > /sys/devices/system/cpu/cpufreq/policy${policy}/scaling_governor
+    for gov in /sys/devices/system/cpu/cpufreq/policy${policy}/schedutil/*; do
+        case "$(basename $gov)" in
+            down_rate_limit_us) echo $down_rate > $gov ;;
+            hispeed_freq) echo $freq > $gov ;;
+            up_rate_limit_us) echo $up_rate > $gov ;;
+        esac
+    done
+}
 
-#cpuMods
-echo $(grep -q 'blu_schedutil' $gov/*/scaling_available_governor && echo "blu_schedutil" || echo "schedutil") | tee $gov/*/scaling_governor
+configure_core() {
+    local core=$1
+    local enable=$2
+    local max_cpus=$3
+    local min_cpus=$4
+    local busy_down_thres=$5
+    local busy_up_thres=$6
 
-for gov_param in $gov/*/schedutil
-    do 
-        echo 500 > $gov_param/down_rate_limit_us
-        echo 90 > $gov_param/hispeed_load
-        echo 1 > $gov_param/pl
-done
+    for param in /sys/devices/system/cpu/cpu${core}/core_ctl/*; do
+        case "$(basename $param)" in
+            enable) echo $enable > $param ;;
+            max_cpus) echo $max_cpus > $param ;;
+            min_cpus) echo $min_cpus > $param ;;
+            busy_down_thres) echo $busy_down_thres > $param ;;
+            busy_up_thres) echo $busy_up_thres > $param ;;
+        esac
+    done
+}
 
-for policy_0 in $gov/policy0/schedutil
-    do 
-        echo 1036800 > $policy_0/hispeed_freq
-        echo 300 > $policy_0/up_rate_limit_us
-done
-for policy_4 in $gov/policy4/schedutil
-    do
-        echo 1497600 > $policy_4/hispeed_freq
-        echo 700 > $policy_4/up_rate_limit_us
-done
-for policy_7 in $gov/policy7/schedutil
-    do
-        echo 2016000 > $policy_7/hispeed_freq
-        echo 900 > $policy_7/up_rate_limit_us
-done
+configure_stune(){
+    local name=$1
+    local cpus=$2
+    local boost=$3
+    local colocate=$4
+    local prefer_idle=$5
+    local no_override=$6
 
-#coreControl
-for core_0 in /sys/devices/system/cpu/cpu0/core_ctl
-    do 
-        echo 1 > $core_0/enable
-        echo 4 > $core_0/max_cpus
-        echo 0 > $core_0/min_cpus
-        echo 10 > $core_0/busy_down_thres
-        echo 10 > $core_0/busy_up_thres
-done
-for core_4 in /sys/devices/system/cpu/cpu4/core_ctl
-    do 
-        echo 1 > $core_4/enable
-        echo 3 > $core_4/max_cpus
-        echo 0 > $core_4/min_cpus
-        echo 40 > $core_4/busy_down_thres
-        echo 60 > $core_4/busy_up_thres
-done
-for core_7 in /sys/devices/system/cpu/cpu7/core_ctl
-    do 
-        echo 1 > $core_7/enable
-        echo 1 > $core_7/max_cpus
-        echo 0 > $core_7/min_cpus
-        echo 90 > $core_7/busy_down_thres
-        echo 90 > $core_7/busy_up_thres
-done
+    for stune in /dev/stune/${name}/*; do
+        case "$(basename $stune)" in
+            schedtune.boost) echo $boost > $stune ;;
+            schedtune.colocate) echo $colocate > $stune ;;
+            schedtune.prefer_idle) echo $prefer_idle > $stune ;;
+            schedtune.sched_boost_no_override) echo $no_override > $stune ;;
+        esac
+    done
+    echo $cpus > /dev/cpuset/${name}/cpus
+}
 
-#stuneBoost
-for audio_app in $stune/audio-app
-    do 
-        echo 0 > $audio_app/schedtune.boost
-        echo 0 > $audio_app/schedtune.colocate
-        echo 0 > $audio_app/schedtune.prefer_idle
-        echo 1 > $audio_app/schedtune.sched_boost_no_override
-done
-    echo "2-3" > $cpu_set/audio-app/cpus
-for background in $stune/background
-    do 
-        echo 0 > $background/schedtune.boost
-        echo 0 > $background/schedtune.colocate
-        echo 0 > $background/schedtune.prefer_idle
-        echo 1 > $background/schedtune.sched_boost_no_override
-done
-    echo "0-1" > $cpu_set/background/cpus
-for camera_daemon in $stune/camera-daemon
-    do 
-        echo 0 > $camera_daemon/schedtune.boost
-        echo 0 > $camera_daemon/schedtune.colocate
-        echo 0 > $camera_daemon/schedtune.prefer_idle
-        echo 1 > $camera_daemon/schedtune.sched_boost_no_override
-done
-    echo "2-3,5" > $cpu_set/camera-daemon/cpus
-for foreground in $stune/foreground
-    do 
-        echo 0 > $foreground/schedtune.boost
-        echo 0 > $foreground/schedtune.colocate
-        echo 0 > $foreground/schedtune.prefer_idle
-        echo 1 > $foreground/schedtune.sched_boost_no_override
-done
-    echo "0-1,4" > $cpu_set/foreground/cpus
-for nnapi_hal in $stune/nnapi-hal
-    do 
-        echo 0 > $nnapi_hal/schedtune.boost
-        echo 0 > $nnapi_hal/schedtune.colocate
-        echo 0 > $nnapi_hal/schedtune.prefer_idle
-        echo 1 > $nnapi_hal/schedtune.sched_boost_no_override
-done
-for rt in $stune/rt
-    do 
-        echo 0 > $rt/schedtune.boost
-        echo 0 > $rt/schedtune.colocate
-        echo 0 > $rt/schedtune.prefer_idle
-        echo 1 > $rt/schedtune.sched_boost_no_override
-done
-for top_app in $stune/top-app
-    do 
-        echo 0 > $top_app/schedtune.boost
-        echo 1 > $top_app/schedtune.colocate
-        echo 0 > $top_app/schedtune.prefer_idle
-        echo 1 > $top_app/schedtune.sched_boost_no_override
-done
-    echo "0-6" > $cpu_set/top-app/cpus
-for general in $stune
-    do 
-        echo 0 > $general/schedtune.boost
-        echo 0 > $general/schedtune.colocate
-        echo 0 > $general/schedtune.prefer_idle
-        echo 0 > $general/schedtune.sched_boost_no_override
-done
+configure_io() {
+    local disk=$1
+    local scheduler=$2
+    local nr_requests=$3
+    local read_ahead_kb=$4
+    local add_random=0
+    local iostats=0
 
-#vmMods
-for zram0 in /sys/block/zram0/queue
-    do 
-        echo 0 > $zram0/add_random
-        echo 0 > $zram0/iostats
-        echo 128 > $zram0/nr_requests
-        echo 1024 > $zram0/read_ahead_kb
-done
-for dm0 in /sys/block/dm-0/queue
-    do 
-        echo 0 > $dm0/add_random
-        echo 0 > $dm0/iostats
-        echo 128 > $dm0/nr_requests
-        echo 1024 > $dm0/read_ahead_kb
-done
-for dm1 in /sys/block/dm-1/queue
-    do 
-        echo 0 > $dm1/add_random
-        echo 0 > $dm1/iostats
-        echo 128 > $dm1/nr_requests
-        echo 1024 > $dm1/read_ahead_kb
-done
+    for io in /sys/block/${disk}/queue/*; do
+        case "$(basename $io)" in
+            scheduler) [ "$disk" != "zram0" ] && [ "$disk" != "dm-0" ] && echo $scheduler > $io ;;
+            add_random) echo $add_random > $io ;;
+            iostats) echo $iostats > $io ;;
+            nr_requests) echo $nr_requests > $io ;;
+            read_ahead_kb) echo $read_ahead_kb > $io ;;
+        esac
+    done      
+}
+
+sleep 25
+configure_cpu "schedutil" 0 500 1036800 300
+configure_cpu "schedutil" 4 500 1497600 700
+configure_cpu "schedutil" 7 500 2016000 900
+configure_core  0  1  4  0  10  10
+configure_core  4  1  3  0  40  60
+configure_core  7  1  1  0  90  90
+configure_stune "background" "0-1" 0 1 1 0
+configure_stune "camera-daemon" "0-7" 0 1 0 1
+configure_stune "foreground" "2-7" 0 0 0 1
+configure_stune "top-app" "0-7" 1 1 1 1
+configure_io "mmcblk0" "noop" 256 512
+configure_io "sda" "cfq" 128 256
+configure_io "sdb" "cfq" 256 512
+configure_io "sdc" "cfq" 128 256
+configure_io "sdd" "cfq" 256 512
+configure_io "sde" "cfq" 128 256
+configure_io "sdf" "cfq" 256 512
+configure_io "zram0" "" 256 512
+configure_io "dm-0" "" 128 128
 
 for virtual_mem in /proc/sys/vm
     do 
-        echo 60 > $virtual_mem/swappiness
         echo 10 > $virtual_mem/dirty_ratio
-        echo 20 > $virtual_mem/dirty_background_ratio
-        echo 500 > $virtual_mem/dirty_writeback_centisecs
-        echo 3000 > $virtual_mem/dirty_expire_centisecs
+        echo 5 > $virtual_mem/dirty_background_ratio
+        echo 1500 > $virtual_mem/dirty_writeback_centisecs
+        echo 500 > $virtual_mem/dirty_expire_centisecs
         echo 90 > $virtual_mem/vfs_cache_pressure
-        echo 0 > $virtual_mem/page-cluster
-        echo 0 > $virtual_mem/stat_interval
 done
-
-exit 0
