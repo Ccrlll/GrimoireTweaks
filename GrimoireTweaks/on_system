@@ -87,14 +87,14 @@ configure_stune "background" "0-1" 0 1 1 0
 configure_stune "camera-daemon" "0-7" 0 1 0 1
 configure_stune "foreground" "2-7" 0 0 0 1
 configure_stune "top-app" "0-7" 1 1 1 1
-configure_io "mmcblk0" "noop" 256 512
-configure_io "sda" "cfq" 128 256
+configure_io "mmcblk0" "noop" 512 512
+configure_io "sda" "cfq" 256 512
 configure_io "sdb" "cfq" 256 512
-configure_io "sdc" "cfq" 128 256
+configure_io "sdc" "cfq" 256 512
 configure_io "sdd" "cfq" 256 512
-configure_io "sde" "cfq" 128 256
+configure_io "sde" "cfq" 256 512
 configure_io "sdf" "cfq" 256 512
-configure_io "zram0" "" 256 512
+configure_io "zram0" "" 256 256
 configure_io "dm-0" "" 128 128
 
 for virtual_mem in /proc/sys/vm
