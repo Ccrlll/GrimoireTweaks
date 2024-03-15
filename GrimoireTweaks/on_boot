@@ -9,11 +9,11 @@ for path in $display/soc/soc:qcom,dsi-display-primary $display/kcal_ctrl.0; do
             ;;
         $display/kcal_ctrl.0)
             echo 1 > $path/kcal_enable
-            echo 252 252 255 > $path/kcal
-            echo 255 > $path/kcal_cont
+            echo 225 225 237 > $path/kcal
+            echo 264 > $path/kcal_cont
             echo 35 > $path/kcal_min
-            echo 263 > $path/kcal_sat
-            echo 255 > $path/kcal_val
+            echo 277 > $path/kcal_sat
+            echo 250 > $path/kcal_val
             ;;
     esac
 done
