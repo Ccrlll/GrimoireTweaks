@@ -8,13 +8,15 @@ configure_cpu() {
     local up_rate=$5
 
     echo $governor > /sys/devices/system/cpu/cpufreq/policy${policy}/scaling_governor
-    for gov in /sys/devices/system/cpu/cpufreq/policy${policy}/schedutil/*; do
-        case "$(basename $gov)" in
-            down_rate_limit_us) echo $down_rate > $gov ;;
-            hispeed_freq) echo $freq > $gov ;;
-            up_rate_limit_us) echo $up_rate > $gov ;;
-        esac
-    done
+    if [ "$governor" == "schedutil" ]; then
+        for gov in /sys/devices/system/cpu/cpufreq/policy${policy}/schedutil/*; do
+            case "$(basename $gov)" in
+                down_rate_limit_us) echo $down_rate > $gov ;;
+                hispeed_freq) echo $freq > $gov ;;
+                up_rate_limit_us) echo $up_rate > $gov ;;
+            esac
+        done
+    fi
 }
 
 configure_core() {
@@ -96,10 +98,11 @@ configure_io "zram0" "" 256 512
 configure_io "dm-0" "" 128 128
 
 for virtual_mem in /proc/sys/vm
-    do 
+    do
+        echo 100 > $virtual_mem/swappiness
         echo 10 > $virtual_mem/dirty_ratio
         echo 5 > $virtual_mem/dirty_background_ratio
         echo 1500 > $virtual_mem/dirty_writeback_centisecs
         echo 500 > $virtual_mem/dirty_expire_centisecs
-        echo 90 > $virtual_mem/vfs_cache_pressure
+        echo 100 > $virtual_mem/vfs_cache_pressure
 done
