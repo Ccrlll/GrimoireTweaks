@@ -79,7 +79,7 @@ configure_io() {
 sleep 25
 configure_cpu "schedutil" 0 500 1036800 300
 configure_cpu "schedutil" 4 500 1497600 700
-configure_cpu "powersave" 7 500 2016000 900
+configure_cpu "schedutil" 7 500 2016000 900
 configure_core  0  1  4  0  10  10
 configure_core  4  1  3  0  40  60
 configure_core  7  1  1  0  90  90
