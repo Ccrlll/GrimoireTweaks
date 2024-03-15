@@ -1,5 +1,6 @@
 #!/system/bin/sh
 
+devfreq=/sys/class/devfreq
 display=/sys/devices/platform
 for path in $display/soc/soc:qcom,dsi-display-primary $display/kcal_ctrl.0; do
     case "$path" in
@@ -17,3 +18,6 @@ for path in $display/soc/soc:qcom,dsi-display-primary $display/kcal_ctrl.0; do
             ;;
     esac
 done
+
+#misc.
+echo "bbr" > /proc/sys/net/ipv4/tcp_congestion_control

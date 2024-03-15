@@ -8,15 +8,13 @@ configure_cpu() {
     local up_rate=$5
 
     echo $governor > /sys/devices/system/cpu/cpufreq/policy${policy}/scaling_governor
-    if [ "$governor" = "schedutil" ]; then
-        for gov in /sys/devices/system/cpu/cpufreq/policy${policy}/schedutil/*; do
-            case "$(basename $gov)" in
-                down_rate_limit_us) echo $down_rate > $gov ;;
-                hispeed_freq) echo $freq > $gov ;;
-                up_rate_limit_us) echo $up_rate > $gov ;;
-            esac
-        done
-    fi
+    for gov in /sys/devices/system/cpu/cpufreq/policy${policy}/schedutil/*; do
+        case "$(basename $gov)" in
+            down_rate_limit_us) echo $down_rate > $gov ;;
+            hispeed_freq) echo $freq > $gov ;;
+            up_rate_limit_us) echo $up_rate > $gov ;;
+        esac
+    done
 }
 
 configure_core() {
@@ -87,22 +85,21 @@ configure_stune "background" "0-1" 0 1 1 0
 configure_stune "camera-daemon" "0-7" 0 1 0 1
 configure_stune "foreground" "2-7" 0 0 0 1
 configure_stune "top-app" "0-7" 1 1 1 1
-configure_io "mmcblk0" "noop" 512 512
-configure_io "sda" "cfq" 256 512
+configure_io "mmcblk0" "noop" 256 512
+configure_io "sda" "cfq" 128 256
 configure_io "sdb" "cfq" 256 512
-configure_io "sdc" "cfq" 256 512
+configure_io "sdc" "cfq" 128 256
 configure_io "sdd" "cfq" 256 512
-configure_io "sde" "cfq" 256 512
+configure_io "sde" "cfq" 128 256
 configure_io "sdf" "cfq" 256 512
-configure_io "zram0" "" 256 256
+configure_io "zram0" "" 256 512
 configure_io "dm-0" "" 128 128
 
 for virtual_mem in /proc/sys/vm
-    do
-        echo 100 > $virtual_mem/swappiness 
+    do 
         echo 10 > $virtual_mem/dirty_ratio
         echo 5 > $virtual_mem/dirty_background_ratio
         echo 1500 > $virtual_mem/dirty_writeback_centisecs
         echo 500 > $virtual_mem/dirty_expire_centisecs
-        echo 100 > $virtual_mem/vfs_cache_pressure
+        echo 90 > $virtual_mem/vfs_cache_pressure
 done
