@@ -1,0 +1,8 @@
+#!/bin/sh
+
+display=/sys/devices/platform
+for path in $display/soc/soc:qcom,dsi-display-primary
+        do
+                echo 1 > $path/hbm
+                echo 1 > $path/cabc
+done

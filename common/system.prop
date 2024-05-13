@@ -1,0 +1,21 @@
+# This file will be read by resetprop
+
+#DPI
+ro.sf.lcd_density=404
+
+#Rendering
+debug.sf.hw=1
+debug.egl.hw=1
+video.accelerate.hw=1
+debug.performance.tuning=1
+debug.sf.auto_latch_unsignaled=1
+
+debug.sf.latch_unsignaled=0
+
+
+#VM
+dalvik.vm.image-dex2oat-filter=speed
+
+#TCP
+persist.cust.tel.eons=1
+ro.config.hw_fast_dormancy=1
